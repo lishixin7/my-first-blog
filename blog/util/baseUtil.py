@@ -6,9 +6,6 @@
 """
 
 import os
-from django.utils import timezone
-from blog.models import BiAsrCount
-from datetime import datetime
 
 def constantProxy(key):
     """
@@ -19,8 +16,3 @@ def constantProxy(key):
     from blog.util.Constant import constDict
     return os.getenv(key, constDict[key])
 
-
-def asrCount(convId, textFrom, asrCount):
-    now = timezone.make_aware(datetime.now(), timezone.get_current_timezone())
-    asrC = BiAsrCount(conv_id=convId, text_from=textFrom, asr_count=asrCount, update_time=now)
-    asrC.save()

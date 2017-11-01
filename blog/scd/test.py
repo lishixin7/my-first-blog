@@ -10,13 +10,22 @@ try:
     pymysql.install_as_MySQLdb()
 except ImportError:
     pass
-
-import django
 import os
+import django
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "mysite.settings")
 django.setup()
 
-from blog.util.baseUtil import asrCount
+from django.utils import timezone
+from datetime import datetime
+from blog.models import BiAsrCount
+
+
+
+def asrCount(convId, textFrom, asrCount):
+    now = timezone.make_aware(datetime.now(), timezone.get_current_timezone())
+    asrC = BiAsrCount(conv_id=convId, text_from=textFrom, asr_count=asrCount, update_time=now)
+    asrC.save()
+
 convId = 'ddddddddd'
 textFrom = 'baidu'
 asrNum = 50
